@@ -1,9 +1,6 @@
 package com.bridgelabz.addressbookapp.dto;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+import lombok.Data;
+@Data
 public class ResponseDTO {
     private String message;
     private Object data;
