@@ -35,11 +35,9 @@ public class AddressBookController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDTO> addAddressbookData(@Valid @RequestBody AddressbookDTO addressbookDTO) {
-        AddressbookData addressbookData = null;
-        addressbookData = addressbookService.createAddressbookData(addressbookDTO);
-        ResponseDTO responseDTO = new ResponseDTO("Created Employee Payroll Data successfully ",addressbookData);
-        return new ResponseEntity<>(responseDTO,HttpStatus.OK);
+    public String addAddressbookData(@Valid @RequestBody AddressbookDTO addressbookDTO) {
+        addressbookService.createAddressbookData(addressbookDTO);
+        return "Created Employee Payroll Data successfully";
     }
 
     @PutMapping("/update/{personId}")

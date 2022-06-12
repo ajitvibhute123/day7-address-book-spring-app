@@ -29,7 +29,6 @@ public class AddressbookService implements IAddressbookService {
     public AddressbookData createAddressbookData(AddressbookDTO addressbookDTO) {
         AddressbookData addressbookData = null;
         addressbookData = new AddressbookData(addressbookDTO);
-        log.debug("AddressbookData: "+addressbookData.toString());
         return addressbookRepository.save(addressbookData);
     }
     @Override
