@@ -18,32 +18,29 @@ public class AddressbookService implements IAddressbookService {
     List<AddressbookData> addressbookDataList = new ArrayList<>();
     @Override
     public List<AddressbookData> getAddressbookData() {
-        return addressbookDataList;
+        return addressbookRepository.findAll();
     }
     @Override
     public AddressbookData getAddressbookDataById(int personId) {
-        return addressbookDataList.stream()
-                .filter(addressbookData -> addressbookData.getPersonId()==personId)
-                .findFirst()
+        return addressbookRepository.findById(personId)
                 .orElseThrow(()->new AddressbookException("Person Not found"));
     }
     @Override
     public AddressbookData createAddressbookData(AddressbookDTO addressbookDTO) {
         AddressbookData addressbookData = null;
-        addressbookData = new AddressbookData(addressbookDataList.size() + 1, addressbookDTO);
+        addressbookData = new AddressbookData(addressbookDTO);
         log.debug("AddressbookData: "+addressbookData.toString());
-        addressbookDataList.add(addressbookData);
         return addressbookRepository.save(addressbookData);
     }
     @Override
     public AddressbookData updateAddressbookData(int personId, AddressbookDTO addressbookDTO) {
         AddressbookData addressbookData = this.getAddressbookDataById(personId);
         addressbookData.updateAddressBookdata(addressbookDTO);
-        addressbookDataList.set(personId - 1, addressbookData);
-        return addressbookData;
+        return addressbookRepository.save(addressbookData);
     }
     @Override
     public void deleteAddressbookData(int personId) {
-        addressbookDataList.remove(personId -1);
+        AddressbookData addressbookData = this.getAddressbookDataById(personId);
+        addressbookRepository.delete(addressbookData);
     }
 }
